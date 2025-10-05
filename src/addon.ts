@@ -1000,7 +1000,8 @@ if (!fs.existsSync(vavaoCachePath)) {
     console.warn('⚠️ [VAVOO] Cache non trovata, provo a generarla automaticamente...');
     try {
         const { execSync } = require('child_process');
-        execSync('python3 vavoo_resolver.py --build-cache', { cwd: path.join(__dirname, '..') });
+        const pythonBin = process.env.PYTHON_BIN || 'python3';
+        execSync(`${pythonBin} vavoo_resolver.py --build-cache`, { cwd: path.join(__dirname, '..') });
         console.log('✅ [VAVOO] Cache generata automaticamente!');
     } catch (err) {
         console.error('❌ [VAVOO] Errore nella generazione automatica della cache:', err);
@@ -1066,7 +1067,8 @@ async function updateVavooCache(): Promise<boolean> {
     console.log(`📺 Avvio aggiornamento cache Vavoo...`);
     try {
         // PATCH: Prendi TUTTI i canali da Vavoo, senza filtri su tv_channels.json
-        const result = await execFilePromise('python3', [
+        const pythonBin = process.env.PYTHON_BIN || 'python3';
+        const result = await execFilePromise(pythonBin, [
             path.join(__dirname, '../vavoo_resolver.py'),
             '--dump-channels'
         ], { timeout: 30000 });
@@ -1252,7 +1254,8 @@ try {
                 }
             };
 
-            const { stdout, stderr } = await execFilePromise('python3', [path.join(__dirname, '../tvtap_resolver.py'), '--build-cache'], options);
+            const pythonBin = process.env.PYTHON_BIN || 'python3';
+            const { stdout, stderr } = await execFilePromise(pythonBin, [path.join(__dirname, '../tvtap_resolver.py'), '--build-cache'], options);
 
             if (stderr) {
                 console.error(`[TVTap] Script stderr:`, stderr);
@@ -2839,7 +2842,8 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                     }
                                 };
 
-                                execFile('python3', [path.join(__dirname, '../tvtap_resolver.py'), vavooName], options, (error: Error | null, stdout: string, stderr: string) => {
+                                const pythonBin = process.env.PYTHON_BIN || 'python3';
+                                execFile(pythonBin, [path.join(__dirname, '../tvtap_resolver.py'), vavooName], options, (error: Error | null, stdout: string, stderr: string) => {
                                     clearTimeout(timeout);
 
                                     if (error) {
@@ -3828,7 +3832,8 @@ app.get('/tvtap-resolve/:channelId', async (req: Request, res: Response) => {
             }
         };
 
-        execFile('python3', [
+        const pythonBin = process.env.PYTHON_BIN || 'python3';
+        execFile(pythonBin, [
             path.join(__dirname, '../tvtap_resolver.py'),
             // Se channelId è un numero, usa il formato tvtap_id:, altrimenti cerca per nome
             /^\d+$/.test(channelId) ? `tvtap_id:${channelId}` : channelId
@@ -4280,7 +4285,8 @@ async function executeLiveScript(): Promise<{ stdout?: string; stderr?: string; 
     try {
         const { execFile } = require('child_process');
         const result = await new Promise<{ stdout?: string; stderr?: string; error?: string }>((resolve) => {
-            const child = execFile('python3', [LIVE_SCRIPT_PATH], {
+            const pythonBin = process.env.PYTHON_BIN || 'python3';
+            const child = execFile(pythonBin, [LIVE_SCRIPT_PATH], {
                 timeout: 1000 * 60 * 4,
                 env: { ...process.env, DYNAMIC_FILE: '/tmp/dynamic_channels.json' }
             }, (err: any, stdout: string, stderr: string) => {

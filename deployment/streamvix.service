@@ -1,0 +1,17 @@
+[Unit]
+Description=StreamViX Personal Stremio Addon
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/streamvix
+Environment=NODE_ENV=production
+Environment=PYTHON_BIN=/usr/bin/python3
+Environment=PORT=7860
+ExecStart=/usr/bin/node dist/addon.js
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

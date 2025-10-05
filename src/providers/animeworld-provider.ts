@@ -18,7 +18,8 @@ async function invokePython(args: string[], timeoutOverrideMs?: number): Promise
   const start = Date.now();
   console.log('[AnimeWorld][PY] spawn', args.join(' '));
   return new Promise((resolve, reject) => {
-    const py = spawn('python3', [scriptPath, ...args]);
+    const pythonBin = process.env.PYTHON_BIN || 'python3';
+    const py = spawn(pythonBin, [scriptPath, ...args]);
     let stdout = '';
     let stderr = '';
     let finished = false;

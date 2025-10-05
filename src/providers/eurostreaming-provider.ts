@@ -23,11 +23,12 @@ function resolvePython(): string {
     }
   } catch { /* ignore */ }
   const candidates = [
+    process.env.PYTHON_BIN,
     '/usr/bin/python3',
     '/usr/local/bin/python3',
     'python3',
     'python'
-  ];
+  ].filter(Boolean) as string[];
   for (const cand of candidates) {
     try {
       if (cand.startsWith('/') && !fs.existsSync(cand)) continue;
@@ -44,7 +45,7 @@ function resolvePython(): string {
     }
   }
   console.warn('[Eurostreaming][PY] nessun python funzionante trovato, uso python3 (potrebbe fallire)');
-  cachedPythonCmd = 'python3';
+  cachedPythonCmd = process.env.PYTHON_BIN || 'python3';
   return cachedPythonCmd;
 }
 import type { StreamForStremio } from '../types/animeunity';

@@ -1,15 +1,33 @@
 
 <img width="230" height="293" alt="icon" src="https://github.com/user-attachments/assets/11ef8b0e-6d55-44a4-9ccc-ae7031e99f34" />
 
-# 🎬 StreamViX | ElfHosted 
+# 🎬 StreamViX Personal
 
-Un addon per Stremio che estrae sorgenti streaming dai siti vixsrc e animeunity animesaturn daddy e vavoo per permetterti di guardare film, serie TV, anime e tv con la massima semplicità.
+Personal fork of StreamViX - Un addon per Stremio che estrae sorgenti streaming dai siti vixsrc e animeunity animesaturn daddy e vavoo per permetterti di guardare film, serie TV, anime e tv con la massima semplicità.
 
-[Link di Installazione](https://streamvix.hayd.uk/)
+**Original project:** [qwertyuiop8899/streamvix](https://github.com/qwertyuiop8899/streamvix)
 
-Istanza ElfHosted a pagamento CON Mediaflo Proxy incluso (Per Eventi Sportivi) 
+## 🚀 Quick Setup
 
-[Istanza ElfHosted con Mediaflow](https://store.elfhosted.com/product/streamvix/)
+### Local Development
+```bash
+git clone https://github.com/iceblinker/streamvix.git
+cd streamvix
+npm install
+npm run build
+npm start
+```
+
+### VPS Deployment (Recommended)
+```bash
+# Option 1: Docker (Easiest)
+curl -sSL https://raw.githubusercontent.com/iceblinker/streamvix/main/deployment/setup-docker.sh | bash
+
+# Option 2: Direct Node.js
+curl -sSL https://raw.githubusercontent.com/iceblinker/streamvix/main/deployment/setup-vps.sh | bash
+```
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for detailed instructions.
 
 
 ---

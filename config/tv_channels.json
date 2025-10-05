@@ -14,7 +14,8 @@
     "epgChannelIds": [
       "rai1.it"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=850"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=850",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AE2DSZLDMQOCIJB6GJSXGGYSBMAQA/index.m3u8"
   },
   {
     "id": "rai2",
@@ -29,7 +30,8 @@
     ],
     "epgChannelIds": [
       "rai2.it"
-    ]
+    ],
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AE2DSZLAMQOCIJB6GJSXGGYSBMAQC/index.m3u8"
   },
   {
     "id": "rai3",
@@ -44,7 +46,8 @@
     ],
     "epgChannelIds": [
       "rai3.it"
-    ]
+    ],
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AE2DSZLBMQOCIJB6GJSXGGYSBMAQG/index.m3u8"
   },
   {
     "id": "rete4",
@@ -91,7 +94,8 @@
     "epgChannelIds": [
       "italia1.it"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=854"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=854",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/DIQTCKJ3EV2WCZI3H4SDKSASDEPBACAFAQ/index.m3u8"
   },
   {
     "id": "la7",
@@ -106,7 +110,8 @@
     ],
     "epgChannelIds": [
       "la7.it"
-    ]
+    ],
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/D42GOZI3GA2DYPDSMFXXSCIHAY/index.m3u8"
   },
   {
     "id": "tv8",
@@ -154,7 +159,8 @@
     "epgChannelIds": [
       "20Mediaset.it"
     ],
-    "category": "mediaset"
+    "category": "mediaset",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/MFSXACBXEA6DCNRXH5SRARKTL5GRAGQ2CBVWAZY/index.m3u8"
   },
   {
     "id": "rai4",
@@ -732,7 +738,8 @@
       "RaiSport+HD.it"
     ],
     "category": "rai",
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=882"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=882",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AE2DSZIBGQ5CEMLSAIYTQXKLCMPBUEAIBBQQ/index.m3u8"
   },
   {
     "id": "motortrend",
@@ -817,7 +824,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=860"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=860",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMIDOXQSPJAFCXCJCB4X64D5MR2A/index.m3u8"
   },
   {
     "id": "skycinemadue",
@@ -855,7 +863,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=862"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=862",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMDDMXCXK5GRA6KEKE7SY4DPPBSG2ZTX/index.m3u8"
   },
   {
     "id": "skycinemaaction",
@@ -874,7 +883,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=861"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=861",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMCDURK3LRNBA6KEKE7SY4DPPBSG2ZTU/index.m3u8"
   },
   {
     "id": "skycinemafamily",
@@ -893,7 +903,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=865"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=865",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMBTQXC3L5GRA6KEKE7SY4DPPBSG2ZTQ/index.m3u8"
   },
   {
     "id": "skycinemacollection",
@@ -912,7 +923,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=859"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=859",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMDDMXK6KZLUIWK7LZZRYJBEHY6XK6TPOJZXAYA/index.m3u8"
   },
   {
     "id": "skycinemadrama",
@@ -931,7 +943,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=867"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=867",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMASWUC7KIKHSRCRLQVHK6TPOJ6GGZY/index.m3u8"
   },
   {
     "id": "skycinemasuspense",
@@ -950,7 +963,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=868"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=868",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMLCYQSCKZNEGVIQPETTIPB4OJXH64D5MRZQ/index.m3u8"
   },
   {
     "id": "skycinemaromance",
@@ -969,7 +983,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=864"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=864",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIRFU5TKKBTNMLTMXCTLVLVKEDZIQZDSKLFPBXHK2DTMY/index.m3u8"
   },
   {
     "id": "skyuno",
@@ -985,7 +1000,8 @@
     "epgChannelIds": [
       "skyuno.it"
     ],
-    "category": "sky"
+    "category": "sky",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIHBINHADBGFIUSAEIYDEKAQCAB/index.m3u8"
   },
   {
     "id": "skyserie",
@@ -1004,7 +1020,8 @@
       "sky",
       "movies"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=880"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=880",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBEETTSIDSAIYTQXKLCMPBUEAIBBRQ/index.m3u8"
   },
   {
     "id": "skyatlantic",
@@ -1167,7 +1184,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=869"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=869",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSPFYXS6CGKJMESEA2DJZW2ZT4/index.m3u8"
   },
   {
     "id": "skysportuno",
@@ -1186,7 +1204,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=461"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=461",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSDYFRMEL3I5KVYSIQDJ4XKZDTMM/index.m3u8"
   },
   {
     "id": "skysportf1",
@@ -1205,7 +1224,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=577"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=577",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSBV2HS6CGKJMESEA2DJZWAZ3S/index.m3u8"
   },
   {
     "id": "skysportcalcio",
@@ -1224,7 +1244,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=870"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=870",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSBASDKUS3LQKHSRCRLQVHK6TPOJ6GEYA/index.m3u8"
   },
   {
     "id": "skysporttennis",
@@ -1243,7 +1264,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=576"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=576",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSD4QDOX23IAKHSRCRLQVHK6TPOJYWEZQ/index.m3u8"
   },
   {
     "id": "skysportmotogp",
@@ -1262,7 +1284,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=575"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=575",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSAYVC2XTVMMKHSRCRLQVHK6TPOJYWEZI/index.m3u8"
   },
   {
     "id": "skysportarena",
@@ -1281,7 +1304,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=462"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=462",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSBI3TYX2TCN6UIUK4JFZX66TFMZZGO/index.m3u8"
   },
   {
     "id": "skysportmax",
@@ -1300,7 +1324,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=460"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=460",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIBGQ5CEMLSAYSCCEI2MBPUSEDDIA6COJDFCQVTUJBHGMTSS6LYIZJFQSIZCANHS5LEONRA/index.m3u8"
   },
   {
     "id": "skysportnba",
@@ -1351,7 +1376,8 @@
       "eurosport1.it"
     ],
     "category": "sport",
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=878"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=878",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/CYQCEKQBGQ5CEMLSPJSRARKTL5GRAGQ2CBVWE2A/index.m3u8"
   },
   {
     "id": "eurosport2",
@@ -1368,7 +1394,8 @@
       "eurosport2.it"
     ],
     "category": "sport",
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=879"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=879",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/CYQCEKQBGQ5CEMLSPFSRARKTL5GRAGQ2CBVWE2I/index.m3u8"
   },
   {
     "id": "eurosport3",
@@ -1469,7 +1496,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=871"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=871",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIREU4TGLB5NN2HSGIAAYCRSEDZIQZDSKLFPBXHK2DSMM/index.m3u8"
   },
   {
     "id": "skysport252",
@@ -1488,7 +1516,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=872"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=872",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIREU4TGLB5NN3XSGIAAYDBSEDZIQZDSKLFPBXHK2DSMA/index.m3u8"
   },
   {
     "id": "skysport253",
@@ -1507,7 +1536,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=873"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=873",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIREU4TGLB5NN3HSGIAAYDRSEDZIQZDSKLFPBXHK2DSME/index.m3u8"
   },
   {
     "id": "skysport254",
@@ -1526,7 +1556,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=874"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=874",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIREU4TGLB5NNYXSGIAAYABSEDZIQZDSKLFPBXHK2DSMY/index.m3u8"
   },
   {
     "id": "skysport255",
@@ -1545,7 +1576,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=875"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=875",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIREU4TGLB5NNYHSGIAAYARSEDZIQZDSKLFPBXHK2DSM4/index.m3u8"
   },
   {
     "id": "skysport256",
@@ -1564,7 +1596,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=876"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=876",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIREU4TGLB5NNZXSGIAAYBBSEDZIQZDSKLFPBXHK2DSMQ/index.m3u8"
   },
   {
     "id": "skysport257",
@@ -1583,7 +1616,8 @@
       "sky",
       "sport"
     ],
-    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=877"
+    "staticUrlD_CF": "https://proxy.stremio.dpdns.org/manifest.m3u8?url=https://dlhd.dad/watch.php?id=877",
+    "pdUrlF": "https://world-proxifier.xyz/daddylive_go/p/AA7CSZIREU4TGLB5NNZHSGIAAYBRSEDZIQZDSKLFPBXHK2DSMU/index.m3u8"
   },
   {
     "id": "skysport258",
