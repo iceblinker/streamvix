@@ -12,7 +12,7 @@ async function invokePythonScraper(args: string[]): Promise<any> {
     const scriptPath = path.join(__dirname, 'animeunity_scraper.py');
     
     // Use python3, ensure it's in the system's PATH
-    const command = process.env.PYTHON_BIN || 'python3';
+    const command = process.env.PYTHON_BIN || 'python';
 
     return new Promise((resolve, reject) => {
         const pythonProcess = spawn(command, [scriptPath, ...args]);

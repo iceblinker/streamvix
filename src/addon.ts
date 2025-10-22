@@ -746,7 +746,7 @@ function _loadStaticChannelsIfChanged(force = false) {
         const enable = enableRaw;
         if (!['1','true','on','yes'].includes(enable)) return;
     const intervalMs = Math.max(30000, parseInt(process.env.STREAMED_POLL_INTERVAL_MS || '120000', 10)); // default 120s (allineato a RBTV)
-        const pythonBin = process.env.PYTHON_BIN || 'python3';
+        const pythonBin = process.env.PYTHON_BIN || 'python';
         const scriptPath = path.join(__dirname, '..', 'streamed_channels.py');
         if (!fs.existsSync(scriptPath)) { console.log('[STREAMED][INIT] script non trovato', scriptPath); return; }
         function runOnce(tag: string) {
@@ -801,7 +801,7 @@ function _loadStaticChannelsIfChanged(force = false) {
             console.log('[RBTV][INIT] abilitazione automatica');
         }
         if (!['1','true','on','yes'].includes(enableRaw)) return;
-        const pythonBin = process.env.PYTHON_BIN || 'python3';
+        const pythonBin = process.env.PYTHON_BIN || 'python';
         const scriptPath = path.join(__dirname, '..', 'rbtv_streams.py');
         if (!fs.existsSync(scriptPath)) { console.log('[RBTV][INIT] script non trovato', scriptPath); return; }
         const intervalMs = Math.max(60000, parseInt(process.env.RBTV_POLL_INTERVAL_MS || '120000', 10)); // default 120s

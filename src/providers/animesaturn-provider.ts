@@ -9,7 +9,7 @@ import { checkIsAnimeById } from '../utils/animeGate';
 // Helper function to invoke the Python scraper
 async function invokePythonScraper(args: string[]): Promise<any> {
     const scriptPath = path.join(__dirname, 'animesaturn.py');
-    const command = process.env.PYTHON_BIN || 'python3';
+    const command = process.env.PYTHON_BIN || 'python';
     
     // Ottieni la config globale se disponibile
     let mfpProxyUrl = '';

@@ -45,7 +45,7 @@ function resolvePython(): string {
     }
   }
   console.warn('[Eurostreaming][PY] nessun python funzionante trovato, uso python3 (potrebbe fallire)');
-  cachedPythonCmd = process.env.PYTHON_BIN || 'python3';
+  cachedPythonCmd = process.env.PYTHON_BIN || 'python';
   return cachedPythonCmd;
 }
 import type { StreamForStremio } from '../types/animeunity';

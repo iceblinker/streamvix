@@ -9,7 +9,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { fetchPage } = require('../dist/src/providers/flaresolverr.js');
+const { fetchPage } = require('../dist/providers/flaresolverr.js');
 
 const argv = process.argv.slice(2);
 const asFlag = (name, def) => {
