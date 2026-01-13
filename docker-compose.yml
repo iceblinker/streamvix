@@ -1,0 +1,20 @@
+services:
+  streamvix:
+    build: .
+    container_name: streamvix
+    restart: unless-stopped
+    ports:
+      - "7860:7860"
+    environment:
+      - PORT=7860
+      - MIN_PORT=7860
+      - MAX_PORT=7860
+      - ALLOW_CROSS_DOMAIN=true
+    env_file:
+      - .env
+    networks:
+      - ai_network
+
+networks:
+  ai_network:
+    external: true
