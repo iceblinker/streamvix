@@ -37,12 +37,16 @@ ENV PYTHONPATH=/usr/local/lib/python3.11/dist-packages:/usr/lib/python3.11/dist-
 ENV PATH="/usr/local/bin:/usr/bin:$PATH"
 
 # Torna all'utente node per le operazioni di pnpm e l'esecuzione dell'app
+# Clean before switching user to avoid permission issues
+RUN rm -rf node_modules .pnpm-store dist 2>/dev/null || true
+RUN mkdir -p node_modules .pnpm-store && chown -R node:node /usr/src/app
+
 USER node
 
 # Pulisci cache precedenti e installa dipendenze
 ARG BUILD_CACHE_BUST=23
 RUN echo "Build cache bust: $BUILD_CACHE_BUST"
-RUN rm -rf node_modules .pnpm-store dist 2>/dev/null || true
+RUN pnpm config set store-dir /usr/src/app/.pnpm-store
 RUN pnpm install --prod=false
 
 # Fix per il problema undici su ARM/Raspberry Pi
