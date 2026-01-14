@@ -29,25 +29,33 @@ RUN npm install -g pnpm@8.15.5
 # Copia i file del progetto nella directory di lavoro
 COPY . .
 
-# Assicura che l'utente node sia proprietario della directory dell'app e del suo contenuto
-RUN chown -R node:node /usr/src/app
+# Copy files (owned by root initially)
+COPY . .
 
 # IMPORTANTE: Imposta le variabili d'ambiente per Python
 ENV PYTHONPATH=/usr/local/lib/python3.11/dist-packages:/usr/lib/python3.11/dist-packages
 ENV PATH="/usr/local/bin:/usr/bin:$PATH"
 
-# Torna all'utente node per le operazioni di pnpm e l'esecuzione dell'app
-# Clean before switching user to avoid permission issues
-RUN rm -rf node_modules .pnpm-store dist 2>/dev/null || true
-RUN mkdir -p node_modules .pnpm-store && chown -R node:node /usr/src/app /home/node
-
-USER node
-
-# Pulisci cache precedenti e installa dipendenze
+# Pulisci cache precedenti e installa dipendenze come ROOT per evitare problemi di permessi
 ARG BUILD_CACHE_BUST=23
 RUN echo "Build cache bust: $BUILD_CACHE_BUST"
+# Usa store globale o default, non importa, siamo root ora
 ENV NPM_CONFIG_STORE_DIR=/usr/src/app/.pnpm-store
+
+RUN rm -rf node_modules .pnpm-store dist 2>/dev/null || true
 RUN pnpm install --prod=false
+
+# Fix per il problema undici su ARM/Raspberry Pi
+RUN pnpm add undici@6.19.8
+
+# Esegui il build dell'applicazione TypeScript
+RUN pnpm run build
+
+# ORA impostiamo i permessi corretti per l'esecuzione
+RUN chown -R node:node /usr/src/app
+
+# Torna all'utente node per l'esecuzione
+USER node
 
 # Fix per il problema undici su ARM/Raspberry Pi
 RUN pnpm add undici@6.19.8
