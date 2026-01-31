@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { addonBuilder, Manifest, ContentType } from "stremio-addon-sdk";
+import { addonBuilder, getRouter, Manifest, ContentType, Stream } from "stremio-addon-sdk";
 import { getStreamContent, VixCloudStreamInfo, ExtractorConfig } from "./extractor";
 import { mapLegacyProviderName, buildUnifiedStreamName, providerLabel } from './utils/unifiedNames';
 import * as fs from 'fs';
@@ -25,6 +25,8 @@ declare const global: any;
 
 import { EPGManager } from './utils/epg';
 import { exec, execFile, spawn } from 'child_process';
+// import { getSponScheduleStream } from './extractors/sponSchedule';
+// import { getSportsonlineStream } from './extractors/sportsonline';
 const execFilePromise = util.promisify(execFile);
 const DEFAULT_VAVOO_UA = 'VAVOO/3.1.21';
 import * as crypto from 'crypto';
@@ -41,6 +43,12 @@ interface AddonConfig {
     disableLiveTv?: boolean;
     disableVixsrc?: boolean;
     tvtapProxyEnabled?: boolean;
+}
+
+interface VavooCache {
+    timestamp: number;
+    links: Map<string, string | string[]>;
+    updating: boolean;
 }
 
 function debugLog(...args: any[]) { try { console.log('[DEBUG]', ...args); } catch { } }
@@ -511,7 +519,7 @@ function _loadStaticChannelsIfChanged(force = false) {
     try {
         const intervalMs = parseInt(process.env.WATCH_INTERVAL_MS || process.env.TV_STATIC_WATCH_INTERVAL_MS || process.env.DYNAMIC_WATCH_INTERVAL_MS || '300000', 10); // default 5m
         let lastDynMtime = 0; let lastDynHash = '';
-        function checkDynamicOnce() {
+        async function checkDynamicOnce() {
             try {
                 const p = getDynamicFilePath();
                 if (!p || !fs.existsSync(p)) return;
@@ -522,8 +530,8 @@ function _loadStaticChannelsIfChanged(force = false) {
                     const oldShort = lastDynHash.slice(0, 8);
                     lastDynMtime = st.mtimeMs; lastDynHash = h;
                     invalidateDynamicChannels();
-                    const dyn = loadDynamicChannels(true);
-                    console.log(`[WATCH][DYN] reload (changed) oldHash=${oldShort} newHash=${h.slice(0, 8)} count=${dyn.length}`);
+                    const channels = await loadDynamicChannels(true);
+                    console.log(`[WATCH][DYN] reload (changed) oldHash=${oldShort} newHash=${h.slice(0, 8)} count=${channels.length}`);
                 }
             } catch (e) {
                 console.warn('[WATCH][DYN] errore controllo dynamic:', (e as any)?.message || e);
@@ -1209,7 +1217,7 @@ try {
                 console.log(`⚠️ Aggiornamento periodico cache TVTap fallito`);
             }
         }).catch(error => {
-            console.error(`❌ Errore durante l'aggiornamento periodico cache TVTap:`, error);
+            console.error(`❌ Errore durante l'aggiornamento periodico cache TVTap all'avvio:`, error);
         });
     }, TVTAP_UPDATE_INTERVAL);
 
@@ -1675,8 +1683,8 @@ function createBuilder(initialConfig: AddonConfig = {}) {
         console.log(`📺 META REQUEST: type=${type}, id=${id}`);
         if (type === "tv") {
             try {
-                const cfg = { ...configCache } as AddonConfig;
-                if (cfg.disableLiveTv) {
+                const cfg2 = { ...configCache } as AddonConfig;
+                if (cfg2.disableLiveTv) {
                     console.log('📴 TV meta disabled by config.disableLiveTv');
                     return { meta: null };
                 }
@@ -1867,6 +1875,9 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                     let cleanId = id;
 
                     // Gestisci tutti i possibili formati di ID che Stremio può inviare
+                    // if (id.startsWith('freeshot:')) {
+                    //     return await getFreeshotStream(id, config);
+                    // }
                     if (id.startsWith('tv:')) {
                         cleanId = id.replace('tv:', '');
                     } else if (id.startsWith('tv%3A')) {
@@ -1940,7 +1951,7 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                 if (vUrl) {
                                     // Only prepend the CLEAN non-MFP link (per-request, with headers)
                                     const reqObj: any = (global as any).lastExpressRequest;
-                                    const clientIp = getClientIpFromReq(reqObj);
+                                    const clientIp = await getClientIpFromReq(reqObj);
                                     let vavooCleanResolved: { url: string; headers: Record<string, string> } | null = null;
                                     try {
                                         const clean = await resolveVavooCleanUrl(vUrl, clientIp);
@@ -2056,7 +2067,7 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                         // Duplicazione CF per canali italiani nel ramo FAST (logica analoga a EXTRACTOR)
                         try {
                             const cfPrefix = 'https://proxy.stremio.dpdns.org/manifest.m3u8?url=';
-                            const itaRegex = /\b(it|ita|italy|italia|italian|italiano)$/i;
+                            const itaRegex = /\b(it|ita|italy|italia)\b/i;
                             const addedFast = streams.slice(fastStartIndex); // solo quelli appena aggiunti
                             const enrichedFast: { url: string; title: string }[] = [];
                             for (const s of addedFast) {
@@ -2429,7 +2440,8 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                     // === Freeshot (iniezione dopo D/D_CF e prima di daddy/spso/strd/rbtv) ===
                     try {
                         // Import lazy per evitare crash se modulo assente in build parziale
-                        const { resolveFreeshotForChannel } = await import('./extractors/freeshotRuntime');
+                        // const { resolveFreeshotForChannel } = await import('./extractors/freeshotRuntime');
+                        const resolveFreeshotForChannel: any = null; // Disabled
                         let extraTexts: string[] | undefined;
                         try {
                             if ((channel as any).dynamicDUrls && Array.isArray((channel as any).dynamicDUrls)) {
@@ -2438,7 +2450,8 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                     .filter((s: string) => !!s && typeof s === 'string');
                             }
                         } catch { }
-                        const fr = await resolveFreeshotForChannel({ id: (channel as any).id, name: (channel as any).name, epgChannelIds: (channel as any).epgChannelIds, extraTexts });
+                        // const fr = await resolveFreeshotForChannel({ id: (channel as any).id, name: (channel as any).name, epgChannelIds: (channel as any).epgChannelIds, extraTexts });
+                        const fr: any = null; // Disabled
                         if (fr && fr.url && !fr.error) {
                             const freeName = (fr as any).displayName || (channel as any).name || 'Canale';
                             // Posizioniamo subito dopo eventuali D/D_CF: push ora e poi proseguono altri provider
@@ -2507,7 +2520,9 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                         // (RIMOSSO blocco test SPON static: test completato)
                         // Se trovi almeno un link, aggiungi tutti come stream separati numerati
                         if (foundVavooLinks.length > 0) {
-                            foundVavooLinks.forEach(({ url, key }, idx) => {
+                            // Converted to for-of for async support
+                            for (let idx = 0; idx < foundVavooLinks.length; idx++) {
+                                const { url, key } = foundVavooLinks[idx];
                                 const streamTitle = `[✌️ V-${idx + 1}] ${channel.name} [ITA]`;
                                 if (mfpUrl && mfpPsw) {
                                     const vavooProxyUrl = `${mfpUrl}/proxy/hls/manifest.m3u8?d=${encodeURIComponent(url)}&api_password=${encodeURIComponent(mfpPsw)}`;
@@ -2521,8 +2536,8 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                 vavooFoundUrls.push(url);
                                 // For each found link, also prepare a clean variant labeled per index (➡️ V-1, V-2, ...)
                                 const reqObj: any = (global as any).lastExpressRequest;
-                                const clientIp = getClientIpFromReq(reqObj);
-                                vavooCleanPromises.push((async () => {
+                                const clientIp = await getClientIpFromReq(reqObj);
+                                const pClean = (async () => {
                                     vdbg('Variant clean resolve attempt', { index: idx + 1, url: url.substring(0, 140) });
                                     try {
                                         const clean = await resolveVavooCleanUrl(url, clientIp);
@@ -2534,15 +2549,18 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                     } catch (err) {
                                         vdbg('Variant clean failed', { index: idx + 1, error: (err as any)?.message || err });
                                     }
-                                })());
-                            });
+                                })();
+                                vavooCleanPromises.push(pClean);
+                            }
                             console.log(`[VAVOO] RISULTATO: trovati ${foundVavooLinks.length} link, stream generati:`, streams.map(s => s.title));
                         } else {
                             // fallback: chiave esatta
                             const exact = vavooCache.links.get(channel.name);
                             if (exact) {
                                 const links = Array.isArray(exact) ? exact : [exact];
-                                links.forEach((url, idx) => {
+                                // links.forEach((url, idx) => {
+                                for (let idx = 0; idx < links.length; idx++) {
+                                    const url = String(links[idx]);
                                     const streamTitle = `[✌️ V-${idx + 1}] ${channel.name} [ITA]`;
                                     if (mfpUrl && mfpPsw) {
                                         const vavooProxyUrl = `${mfpUrl}/proxy/hls/manifest.m3u8?d=${encodeURIComponent(url)}&api_password=${encodeURIComponent(mfpPsw)}`;
@@ -2556,8 +2574,8 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                     vavooFoundUrls.push(url);
                                     // Prepare clean variant per index as well
                                     const reqObj: any = (global as any).lastExpressRequest;
-                                    const clientIp = getClientIpFromReq(reqObj);
-                                    vavooCleanPromises.push((async () => {
+                                    const clientIp = await getClientIpFromReq(reqObj);
+                                    const pClean = (async () => {
                                         vdbg('Variant clean resolve attempt', { index: idx + 1, url: url.substring(0, 140) });
                                         try {
                                             const clean = await resolveVavooCleanUrl(url, clientIp);
@@ -2569,8 +2587,9 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                         } catch (err) {
                                             vdbg('Variant clean failed', { index: idx + 1, error: (err as any)?.message || err });
                                         }
-                                    })());
-                                });
+                                    })();
+                                    vavooCleanPromises.push(pClean);
+                                }
                                 console.log(`[VAVOO] RISULTATO: fallback chiave esatta, trovati ${links.length} link, stream generati:`, streams.map(s => s.title));
                             } else {
                                 console.log(`[VAVOO] RISULTATO: nessun link trovato per questo canale.`);
@@ -2602,9 +2621,12 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                             if (!eventName) {
                                 // nothing
                             } else {
-                                const { fetchSponSchedule, matchRowsForEvent, debugExtractTeams } = await import('./extractors/sponSchedule');
-                                const { extractSportzonlineStream } = await import('./extractors/sportsonline');
-                                const schedule = await fetchSponSchedule(false).catch(() => [] as any[]);
+                                // const { fetchSponSchedule, matchRowsForEvent, debugExtractTeams } = await import('./extractors/sponSchedule');
+                                // const { extractSportzonlineStream } = await import('./extractors/sportsonline');
+                                // const schedule = await fetchSponSchedule(false).catch(() => [] as any[]);
+                                const schedule: any[] = []; // Disabled
+                                const debugExtractTeams = (s: any) => ({ team1: '', team2: '', raw: '' });
+                                const matchRowsForEvent = (a: any, b: any): any[] => [];
                                 if (!Array.isArray(schedule) || !schedule.length) {
                                     debugLog(`[SPON][DEBUG] schedule empty/invalid for '${eventName}'`);
                                 } else {
@@ -2621,7 +2643,7 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                             const target = weekdayMap[matched[0].day.toUpperCase()] ?? nowDate.getDay();
                                             const base = new Date(nowDate);
                                             const diff = (target - base.getDay() + 7) % 7; base.setDate(base.getDate() + diff);
-                                            const [hh, mm] = matched[0].time.split(':').map(n => parseInt(n, 10));
+                                            const [hh, mm] = matched[0].time.split(':').map((n: string) => parseInt(n, 10));
                                             base.setHours(hh, mm, 0, 0); eventStart = base;
                                             const deltaMs = eventStart.getTime() - Date.now();
                                             if (deltaMs > 0) futureTag = ` (Inizia alle ${matched[0].time})`;
@@ -2637,7 +2659,8 @@ function createBuilder(initialConfig: AddonConfig = {}) {
                                                 const tag = row.channelCode.toUpperCase();
                                                 try {
                                                     debugLog(`[SPON][ROW] extracting ${tag} ${row.url}`);
-                                                    const res = await extractSportzonlineStream(row.url).catch((e: any) => { debugLog(`[SPON][ROW] extractor error ${tag} ${(e?.message) || e}`); return null; });
+                                                    // const res = await extractSportzonlineStream(row.url).catch((e: any) => { debugLog(`[SPON][ROW] extractor error ${tag} ${(e?.message) || e}`); return null; });
+                                                    const res: any = null; // Disabled
                                                     if (!res || !res.url) { debugLog(`[SPON][ROW] no stream ${tag}`); continue; }
                                                     if (seen.has(res.url)) { debugLog(`[SPON][ROW] dup skip ${tag}`); continue; }
                                                     seen.add(res.url);
@@ -3251,13 +3274,13 @@ app.get(['/vixsynthetic', '/vixsynthetic.m3u8'], async (req: Request, res: Respo
 });
 
 // âœ… Middleware semplificato che usa sempre il router globale
-app.use((req: Request, res: Response, next: NextFunction) => {
+app.use(async (req: Request, res: Response, next: NextFunction) => {
     // ...
     debugLog(`Incoming request: ${req.method} ${req.path}`);
     debugLog(`Full URL: ${req.url}`);
     debugLog(`Path segments:`, req.path.split('/'));
     try {
-        const observedIp = getClientIpFromReq(req);
+        const observedIp = await getClientIpFromReq(req);
         if (observedIp) vdbg('Observed client IP', { observedIp, reqIp: (req as any).ip, reqIps: (req as any).ips });
     } catch { }
 

@@ -8,6 +8,8 @@ import { Mutex } from 'async-mutex';
 // Minimal declarations to avoid TS node types requirement
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const process: any;
+declare module 'sax';
+
 
 export interface EPGProgram {
     start: string;
