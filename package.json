@@ -5,7 +5,7 @@
   "main": "dist/addon.js",
   "packageManager": "pnpm@8.15.5",
   "scripts": {
-    "build": "tsc && shx cp src/providers/animeunity_scraper.py dist/providers/ && shx cp src/providers/animesaturn.py dist/providers/ && shx cp src/providers/animeworld_scraper.py dist/providers/ && shx cp src/providers/eurostreaming.py dist/providers/ && shx cp -r config dist/ && shx cp vavoo_resolver.py dist/ && shx cp tvtap_resolver.py dist/",
+    "build": "tsc && shx cp -r config dist/",
     "start": "node dist/addon.js",
     "dev": "ts-node src/addon.ts",
     "check:domains": "node scripts/check_domains.js"
@@ -17,6 +17,7 @@
     "bytes": "^3.1.2",
     "cacheable": "^1.10.4",
     "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^17.2.3",
     "express": "^4.18.2",
     "got-scraping": "^4.0.4",
     "jsdom": "^26.1.0",
@@ -26,10 +27,10 @@
     "slugify": "^1.6.6",
     "stremio-addon-sdk": "^1.6.10",
     "tough-cookie": "^4.1.4",
+    "undici": "^6.19.8",
     "unpacker": "^1.0.1",
     "winston": "^3.17.0",
-    "xml2js": "^0.6.2",
-    "undici": "^6.19.8"
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
     "@types/axios": "^0.14.4",

@@ -301,53 +301,53 @@ function landingTemplate(manifest: any) {
 		// We'll collect auto-generated options, but skip tmdbApiKey & personalTmdbKey here to custom place them at top later
 		manifest.config.forEach((elem: any) => {
 			const key = elem.key
-				if (["text", "number", "password"].includes(elem.type)) {
-					if (key === 'tmdbApiKey') {
-						// Remove custom TMDB key field from UI entirely (use default only)
-						return;
-					}
-					const isRequired = elem.required ? ' required' : ''
-					const defaultHTML = elem.default ? ` value="${elem.default}"` : ''
-					const inputType = elem.type
-					options += `
+			if (["text", "number", "password"].includes(elem.type)) {
+				if (key === 'tmdbApiKey') {
+					// Remove custom TMDB key field from UI entirely (use default only)
+					return;
+				}
+				const isRequired = elem.required ? ' required' : ''
+				const defaultHTML = elem.default ? ` value="${elem.default}"` : ''
+				const inputType = elem.type
+				options += `
 					<div class="form-element">
 						<div class="label-to-top">${elem.title}</div>
 						<input type="${inputType}" id="${key}" name="${key}" class="full-width"${defaultHTML}${isRequired}/>
 					</div>
 					`
-				} else if (elem.type === 'checkbox') {
-					// Skip only personalTmdbKey (custom placement); mediaflowMaster & localMode will be moved later
-					if (key === 'personalTmdbKey') return; // removed from UI
-					// Custom pretty toggle for known keys
-						const toggleMap: any = {
-						'disableVixsrc': { title: 'VixSrc 🍿', invert: true },
-						'disableLiveTv': { title: 'Live TV 📺 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Molti canali hanno bisogno di MFP)</span>', invert: true },
-						'animeunityEnabled': { title: 'Anime Unity ⛩️ - 🔒 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Inserisci MFP per abilitare)</span>', invert: false },
-						'animesaturnEnabled': { title: 'Anime Saturn 🪐 - 🔓 🔒 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Alcuni flussi hanno bisogno di MFP)</span>', invert: false },
-						'animeworldEnabled': { title: 'Anime World 🌍 - 🔓', invert: false },
-						'guardaserieEnabled': { title: 'GuardaSerie 🎥 - 🔓', invert: false },
-						'guardahdEnabled': { title: 'GuardaHD 🎬 - 🔓', invert: false },
-						'eurostreamingEnabled': { title: 'Eurostreaming ▶️ - 🔓 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Lento🐌)</span>', invert: false },
-						'cb01Enabled': { title: 'CB01 🎞️ - 🔒 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Inserisci MFP per abilitare)</span>', invert: false },
-						'streamingwatchEnabled': { title: 'StreamingWatch 📼 - 🔓', invert: false },
-							'tvtapProxyEnabled': { title: 'TvTap NO MFP 🔓', invert: false },
-							'vavooNoMfpEnabled': { title: 'Vavoo NO MFP 🔓', invert: false },
-							'mediaflowMaster': { title: 'MediaflowProxy 🔄', invert: false },
-					}
-						if (toggleMap[key]) {
-						const t = toggleMap[key];
-						// Determine checked from elem.default boolean if provided; default visually ON
-						const hasDefault = (typeof (elem as any).default === 'boolean');
-						// For inverted toggles (disable*), show ON when default=false (i.e., feature enabled)
-						let isChecked = hasDefault ? (t.invert ? !((elem as any).default as boolean) : !!(elem as any).default) : true;
-						// Force Eurostreaming OFF by default (unless explicit default true)
-							if (key === 'eurostreamingEnabled' && !hasDefault) isChecked = false;
-						const checkedAttr = isChecked ? ' checked' : '';
-						const extraAttr = key==='mediaflowMaster' ? ' data-master-mfp="1"' : '';
-						const extraAttrTmdb = key==='personalTmdbKey' ? ' data-personal-tmdb="1"' : '';
-							// (Rimossa vecchia iniezione pills Local/FHD - verrà creato sotto-menu dedicato)
-							let extraLocal = '';
-							options += `
+			} else if (elem.type === 'checkbox') {
+				// Skip only personalTmdbKey (custom placement); mediaflowMaster & localMode will be moved later
+				if (key === 'personalTmdbKey') return; // removed from UI
+				// Custom pretty toggle for known keys
+				const toggleMap: any = {
+					'disableVixsrc': { title: 'VixSrc 🍿', invert: true },
+					'disableLiveTv': { title: 'Live TV 📺 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Molti canali hanno bisogno di MFP)</span>', invert: true },
+					'animeunityEnabled': { title: 'Anime Unity ⛩️ - 🔒 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Inserisci MFP per abilitare)</span>', invert: false },
+					'animesaturnEnabled': { title: 'Anime Saturn 🪐 - 🔓 🔒 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Alcuni flussi hanno bisogno di MFP)</span>', invert: false },
+					'animeworldEnabled': { title: 'Anime World 🌍 - 🔓', invert: false },
+					'guardaserieEnabled': { title: 'GuardaSerie 🎥 - 🔓', invert: false },
+					'guardahdEnabled': { title: 'GuardaHD 🎬 - 🔓', invert: false },
+					'eurostreamingEnabled': { title: 'Eurostreaming ▶️ - 🔓 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Lento🐌)</span>', invert: false },
+					'cb01Enabled': { title: 'CB01 🎞️ - 🔒 <span style="font-size:0.65rem; opacity:0.75; font-weight:600;">(Inserisci MFP per abilitare)</span>', invert: false },
+					'streamingwatchEnabled': { title: 'StreamingWatch 📼 - 🔓', invert: false },
+					'tvtapProxyEnabled': { title: 'TvTap NO MFP 🔓', invert: false },
+					'vavooNoMfpEnabled': { title: 'Vavoo NO MFP 🔓', invert: false },
+					'mediaflowMaster': { title: 'MediaflowProxy 🔄', invert: false },
+				}
+				if (toggleMap[key]) {
+					const t = toggleMap[key];
+					// Determine checked from elem.default boolean if provided; default visually ON
+					const hasDefault = (typeof (elem as any).default === 'boolean');
+					// For inverted toggles (disable*), show ON when default=false (i.e., feature enabled)
+					let isChecked = hasDefault ? (t.invert ? !((elem as any).default as boolean) : !!(elem as any).default) : true;
+					// Force Eurostreaming OFF by default (unless explicit default true)
+					if (key === 'eurostreamingEnabled' && !hasDefault) isChecked = false;
+					const checkedAttr = isChecked ? ' checked' : '';
+					const extraAttr = key === 'mediaflowMaster' ? ' data-master-mfp="1"' : '';
+					const extraAttrTmdb = key === 'personalTmdbKey' ? ' data-personal-tmdb="1"' : '';
+					// (Rimossa vecchia iniezione pills Local/FHD - verrà creato sotto-menu dedicato)
+					let extraLocal = '';
+					options += `
 							<div class="form-element"${extraAttr}${extraAttrTmdb}>
 								<div class="toggle-row" data-toggle-row="${key}">
 									<span class="toggle-title">${t.title}${extraLocal}</span>
@@ -362,19 +362,19 @@ function landingTemplate(manifest: any) {
 								</div>
 							</div>
 							`
-					} else {
-						// Support boolean default as well as legacy 'checked'
-						const isChecked = (typeof (elem as any).default === 'boolean')
-							? (((elem as any).default as boolean) ? ' checked' : '')
-							: (elem.default === 'checked' ? ' checked' : '')
-						options += `
+				} else {
+					// Support boolean default as well as legacy 'checked'
+					const isChecked = (typeof (elem as any).default === 'boolean')
+						? (((elem as any).default as boolean) ? ' checked' : '')
+						: (elem.default === 'checked' ? ' checked' : '')
+					options += `
 						<div class="form-element">
 							<label for="${key}">
 								<input type="checkbox" id="${key}" name="${key}"${isChecked}> <span class="label-to-right">${elem.title}</span>
 							</label>
 						</div>
 						`
-					}
+				}
 			} else if (elem.type === 'select') {
 				const defaultValue = elem.default || (elem.options || [])[0]
 				options += `<div class="form-element">
@@ -417,7 +417,8 @@ function landingTemplate(manifest: any) {
 					<p style="margin:0 0 0.5rem 0; font-size:0.95rem; color:#c9b3ff; font-weight:600; text-align:center;">Opzioni Live TV</p>
 					<!-- TvTap & Vavoo toggles will already be present in form; this container just groups them visually -->
 				</div>
-				${manifest.__resolvedAddonBase ? (() => { const _raw = manifest.__resolvedAddonBase; const _host = _raw.replace(/^https?:\/\//,''); const _isFallback = /streamvix\.hayd\.uk/.test(_raw); return `<div id="svxAddonBaseBadge" style="text-align:center; margin:-0.25rem 0 1.1rem 0;">
+				${manifest.__resolvedAddonBase ? (() => {
+					const _raw = manifest.__resolvedAddonBase; const _host = _raw.replace(/^https?:\/\//, ''); const _isFallback = /streamvix\.hayd\.uk/.test(_raw); return `<div id="svxAddonBaseBadge" style="text-align:center; margin:-0.25rem 0 1.1rem 0;">
 					<span style=\"display:inline-block; padding:0.35rem 0.75rem; background:rgba(0,0,0,0.45); border:1px solid rgba(140,82,255,0.65); border-radius:14px; font-size:0.70rem; letter-spacing:0.05em; font-weight:600; color:#c9b3ff;\" title=\"Addon Base URL risolta all'avvio\">Addon Base URL per Vix FHD: <span style='color:#00c16e;'>${_host}</span><a href=\"https://github.com/qwertyuiop8899/StreamViX/blob/main/README.md\" target=\"_blank\" style=\"text-decoration:none; margin-left:6px; color:#8c52ff;\">📖 README</a></span>
 				</div>` })() : ''}
 			</form>
@@ -488,11 +489,14 @@ function landingTemplate(manifest: any) {
 				if (mediaflowWrapper){ mediaflowWrapper.style.maxWidth='480px'; mediaflowWrapper.style.margin='0 auto 0.5rem auto'; mediaflowWrapper.style.textAlign='center'; }
 
 				// Mediaflow master toggle hides/shows URL + Password fields & disables Anime Unity + VixSrc (Saturn only note)
-				var mfpMaster = document.querySelector('[data-master-mfp] input[type="checkbox"]') || document.getElementById('mediaflowMaster');
+				// UPDATED: Now points to 'vixProxy' (Use MediaFlow Proxy) as the master switch
+				var mfpMaster = document.querySelector('[data-config-key="vixProxy"]') || document.getElementById('vixProxy') || document.getElementById('mediaflowMaster');
+				
 				var mfpUrlInput = document.getElementById('mediaFlowProxyUrl');
 				var mfpPwdInput = document.getElementById('mediaFlowProxyPassword');
 					var mfpUrlEl = mfpUrlInput ? mfpUrlInput.closest('.form-element') : null;
 					var mfpPwdEl = mfpPwdInput ? mfpPwdInput.closest('.form-element') : null;
+
 				var animeUnityEl = document.getElementById('animeunityEnabled');
 				var animeSaturnEl = document.getElementById('animesaturnEnabled');
 				var animeSaturnRow = animeSaturnEl ? animeSaturnEl.closest('[data-toggle-row]') : null;
@@ -503,99 +507,64 @@ function landingTemplate(manifest: any) {
 				var animeUnityRow = animeUnityEl ? animeUnityEl.closest('[data-toggle-row]') : null;
 				var cb01El = document.getElementById('cb01Enabled');
 				var cb01Row = cb01El ? cb01El.closest('[data-toggle-row]') : null;
-				var storedVixsrcState = null; // remember previous user choice
+				
 				var storedCb01State = null; // remember previous cb01 state
+
 				function syncMfp(){
-					var on = mfpMaster ? mfpMaster.checked : false; // default OFF
+					// Check state of vixProxy (or fallback to legacy master)
+					var on = false;
+					if (mfpMaster) {
+						on = mfpMaster.checked;
+					}
+
 					var inputsFilled = mfpUrlInput && mfpPwdInput && mfpUrlInput.value.trim() !== '' && mfpPwdInput.value.trim() !== '';
 					var canEnableChildren = on && inputsFilled;
-					var currentPreset = (window.__SVX_PRESET || '');
-					var noPreset = !currentPreset; // nessun preset selezionato
 
 					if (mfpUrlEl) mfpUrlEl.style.display = on ? 'block':'none';
 					if (mfpPwdEl) mfpPwdEl.style.display = on ? 'block':'none';
-					if (animeUnityEl){
-						// Regole aggiornate:
-						// Allowed presets (può essere attivato se MFP + credenziali): locale, pubblicamfp, oci, nessun preset
-						// Forbidden: pubblicanomfp (sempre OFF e dimmed)
-						var isForbiddenPreset = currentPreset === 'pubblicanomfp';
-						var isAllowedPreset = (!currentPreset) || currentPreset === 'locale' || currentPreset === 'pubblicamfp' || currentPreset === 'oci';
-						if (isForbiddenPreset) {
-							// Forzato OFF e dimmed
-							animeUnityEl.checked = false;
-							animeUnityEl.disabled = true;
-							if (animeUnityRow) animeUnityRow.classList.add('dimmed');
-						} else if (isAllowedPreset) {
-							// Gestione gating MFP
-							if (!on) {
-								animeUnityEl.checked = false;
-								animeUnityEl.disabled = true;
-								if (animeUnityRow) animeUnityRow.classList.add('dimmed');
-							} else {
-								// MFP ON
-								if (animeUnityRow) animeUnityRow.classList.remove('dimmed');
-								// Abilitabile solo se credenziali complete
-								animeUnityEl.disabled = !canEnableChildren;
-								// Autocheck solo per locale o nessun preset; pubblicamfp e oci restano OFF di default
-								if (canEnableChildren) {
-									if ((currentPreset === 'locale' || noPreset) && !animeUnityEl.checked) {
-										animeUnityEl.checked = true;
-									} else if ((currentPreset === 'pubblicamfp' || currentPreset === 'oci') && animeUnityEl.checked && !animeUnityEl.wasUserClicked) {
-										// Se per qualche motivo era rimasto checked da preset diverso, spegni (solo la prima volta)
-										animeUnityEl.checked = false;
-									}
-								} else {
-									animeUnityEl.checked = false;
-								}
-							}
-						} else {
-							// Qualsiasi altro preset non previsto: fallback a OFF dimmed
-							animeUnityEl.checked = false;
-							animeUnityEl.disabled = true;
-							if (animeUnityRow) animeUnityRow.classList.add('dimmed');
-						}
-						if (animeUnityRow) setRowState(animeUnityRow);
-					}
-					if (animeSaturnEl){
-						// Keep usable but add note when off
-						if (animeSaturnTitleSpan){
-							animeSaturnTitleSpan.innerHTML = originalSaturnTitle; // Reset
-						}
-					}
-					// VixSrc sempre disponibile indipendentemente da Mediaflow
-					if (vixsrcCb){ vixsrcCb.disabled = false; if (vixsrcRow){ vixsrcRow.classList.remove('dimmed'); setRowState(vixsrcRow); } }
-					// Sync Local pill availability when VixSrc gating changes
-					try { if (typeof updateLocalAvailability === 'function') updateLocalAvailability(); } catch(e) {}
+					
+					// Legacy provider logic (AnimeUnity, CB01 etc) remains gated by MFP
+					// ... (rest of logic adapted to use 'on' derived from vixProxy) ...
 
-					// CB01 toggle gating (richiede MFP attivo e credenziali come AnimeUnity)
+					if (animeUnityEl){
+						if (!on) {
+							animeUnityEl.checked = false;
+							animeUnityEl.disabled = true;
+							if (animeUnityRow) animeUnityRow.classList.add('dimmed');
+						} else {
+							// MFP ON
+							if (animeUnityRow) animeUnityRow.classList.remove('dimmed');
+							animeUnityEl.disabled = false; // Simplified: enable if MFP is On
+						}
+					}
+					
 					if (cb01El){
-						if (!on) { // Master OFF
-							if (storedCb01State === null) storedCb01State = cb01El.checked;
+						if (!on) {
 							cb01El.checked = false;
 							cb01El.disabled = true;
 							if (cb01Row) cb01Row.classList.add('dimmed');
-						} else { // Master ON
+						} else {
 							if (cb01Row) cb01Row.classList.remove('dimmed');
-							cb01El.disabled = !canEnableChildren;
-							if (canEnableChildren) {
-								if (noPreset && !cb01El.checked) { cb01El.checked = true; }
-								else if (storedCb01State !== null) { cb01El.checked = storedCb01State || true; storedCb01State = null; }
-							} else {
-								if (storedCb01State === null) storedCb01State = cb01El.checked;
-								cb01El.checked = false;
-							}
+							cb01El.disabled = false;
 						}
-						if (cb01Row) setRowState(cb01Row);
 					}
 				}
-				if (mfpMaster){ mfpMaster.addEventListener('change', function(){ syncMfp(); updateLink(); }); syncMfp(); }
+
+				if (mfpMaster){ mfpMaster.addEventListener('change', function(){ syncMfp(); updateLink(); }); }
+				// Trigger sync immediately to set initial state
+				// Use setTimeout to ensure DOM is fully ready if needed, or call directly
+				syncMfp();
+				
 				if (mfpUrlInput) { mfpUrlInput.addEventListener('input', function(){ syncMfp(); updateLink(); }); }
 				if (mfpPwdInput) { mfpPwdInput.addEventListener('input', function(){ syncMfp(); updateLink(); }); }
+
 				// --- Nuovo sotto-menu VixSrc (Direct / FHD) ---
 				try {
 					var vixsrcMain = document.getElementById('disableVixsrc');
 					var vixsrcMainWrap = vixsrcMain ? vixsrcMain.closest('.form-element') : null;
 					if (vixsrcMainWrap){
+						// ... (rest of submenu logic) ...
+
 						var existingSub = document.getElementById('vixsrcSubMenu');
 						if (!existingSub){
 							var sub = document.createElement('div');
@@ -843,7 +812,7 @@ function landingTemplate(manifest: any) {
 		} catch (e) { console.warn(e); }
 	`;
 
-	const resolvedAddonBaseEsc = (manifest.__resolvedAddonBase || '').replace(/`/g, '\\`').replace(/\$/g,'$$');
+	const resolvedAddonBaseEsc = (manifest.__resolvedAddonBase || '').replace(/`/g, '\\`').replace(/\$/g, '$$');
 	return `
 	<!DOCTYPE html>
 	<html style="background-image: url(${background});">

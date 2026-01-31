@@ -1,20 +1,20 @@
-version: "3.9"
-
 services:
   streamvix:
-    container_name: StreamVix-Personal
     build: .
+    container_name: streamvix
+    restart: unless-stopped
     ports:
       - "7860:7860"
-    restart: unless-stopped
     environment:
-      - NODE_ENV=production
-      - PYTHON_BIN=python3
-    volumes:
-      - ./cache:/usr/src/app/cache
-      - /tmp:/tmp
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:7860/manifest.json"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
+      - PORT=7860
+      - MIN_PORT=7860
+      - MAX_PORT=7860
+      - ALLOW_CROSS_DOMAIN=true
+    env_file:
+      - .env
+    networks:
+      - ai_network
+
+networks:
+  ai_network:
+    external: true
